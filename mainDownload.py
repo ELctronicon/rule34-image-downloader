@@ -196,14 +196,14 @@ class Downloading:
 			return url
 
 	def download_link(self, url_soup, down_url):
-		if isinstance(url_soup, Tag): # 判断提取的是否为完整链接
+		if self.name in ["yande.re"]:
 			link = url_soup['href']
 			try:
 				_, into = self.down_img(link)
 			except Exception:
 				into = False
 			return link, into
-		else:
+		elif self.name in ["blacked.booru.org", "rule34.xxx", "xbooru.com", "gelbooru.com"]:
 			link = urljoin(down_url, url_soup.a['href'])
 			main = self.res_get(link)
 			if not main:
@@ -308,9 +308,9 @@ class Downloading:
 if __name__ == '__main__':
 	# web_name = "gelbooru"
 	# web_name = "rule34"
-	# web_name = "blacked"
+	web_name = "blacked"
 	# web_name = "xbooru"
-	web_name = "yande"
+	# web_name = "yande"
 	
 	D = Downloading(web_name)
 	D.main()
